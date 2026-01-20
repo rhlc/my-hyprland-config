@@ -5,16 +5,17 @@
 }
 
 window#waybar {
-    background-color: rgba(13, 17, 23, 0.8);
-    color: #ffffff;
-    transition: background-color 0.3s;
+    background-color: rgba(30, 30, 30, 0.75);
+    border-radius: 12px;
+    margin: 6px 8px 0 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 window#waybar.hidden {
     opacity: 0.2;
 }
 
-/* Reset all module styles */
+/* Unified module styling - macOS Tahoe glass pills */
 #clock,
 #battery,
 #cpu,
@@ -33,176 +34,155 @@ window#waybar.hidden {
 #power-profiles-daemon,
 #mpd,
 #custom-power {
-    padding: 4px 12px;
-    margin: 4px 3px;
-    border-radius: 8px;
-    background-color: rgba(22, 27, 34, 0.8);
-    color: #ffffff;
+    padding: 4px 14px;
+    margin: 4px 2px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 #window,
 #workspaces {
-    margin: 4px 4px;
+    margin: 4px 6px;
 }
 
 /* Workspaces */
 #workspaces button {
-    padding: 4px 8px;
+    padding: 4px 10px;
     margin: 0 2px;
     border-radius: 8px;
     background-color: transparent;
-    color: #9da5ae;
+    color: rgba(255, 255, 255, 0.5);
     border: none;
-    box-shadow: none;
 }
 
 #workspaces button:hover {
-    background-color: rgba(48, 54, 61, 0.6);
-    color: #ffffff;
-    box-shadow: none;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.9);
 }
 
 #workspaces button.focused,
 #workspaces button.active {
-    background-color: rgba(88, 166, 255, 0.25);
-    color: #79b8ff;
-    box-shadow: none;
+    background-color: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
 }
 
 #workspaces button.urgent {
-    background-color: rgba(248, 81, 73, 0.25);
-    color: #ff7b72;
+    background-color: rgba(255, 82, 82, 0.3);
+    color: #ff6b6b;
 }
 
 /* Window title */
 #window {
-    color: #b1bac4;
+    color: rgba(255, 255, 255, 0.7);
     font-weight: 500;
 }
 
-/* Clock - centered, slightly emphasized */
+/* Clock - center emphasis */
 #clock {
-    background-color: rgba(88, 166, 255, 0.15);
-    color: #79b8ff;
+    background-color: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
     font-weight: 600;
-    padding: 4px 16px;
+    padding: 4px 18px;
 }
 
 /* Battery */
 #battery {
-    background-color: rgba(63, 185, 80, 0.15);
-    color: #56d364;
+    color: #32d74b;
 }
 
 #battery.charging,
 #battery.plugged {
-    background-color: rgba(63, 185, 80, 0.25);
-    color: #56d364;
+    color: #32d74b;
 }
 
 #battery.warning:not(.charging) {
-    background-color: rgba(210, 153, 34, 0.2);
-    color: #e3b341;
+    color: #ffd60a;
 }
 
 #battery.critical:not(.charging) {
-    background-color: rgba(248, 81, 73, 0.3);
-    color: #ff7b72;
+    color: #ff453a;
     animation: pulse 1s ease-in-out infinite;
 }
 
 @keyframes pulse {
     0% { opacity: 1; }
-    50% { opacity: 0.6; }
+    50% { opacity: 0.5; }
     100% { opacity: 1; }
 }
 
 /* CPU */
 #cpu {
-    background-color: rgba(118, 227, 234, 0.15);
-    color: #a5f3fc;
+    color: rgba(255, 255, 255, 0.85);
 }
 
 /* Memory */
 #memory {
-    background-color: rgba(188, 140, 255, 0.15);
-    color: #d2a8ff;
+    color: rgba(255, 255, 255, 0.85);
 }
 
 /* Temperature */
 #temperature {
-    background-color: rgba(219, 109, 40, 0.15);
-    color: #f0883e;
+    color: rgba(255, 255, 255, 0.85);
 }
 
 #temperature.critical {
-    background-color: rgba(248, 81, 73, 0.3);
-    color: #ff7b72;
+    color: #ff453a;
 }
 
 /* Network */
 #network {
-    background-color: rgba(88, 166, 255, 0.15);
-    color: #79b8ff;
+    color: #0a84ff;
 }
 
 #network.disconnected {
-    background-color: rgba(248, 81, 73, 0.2);
-    color: #ff7b72;
+    color: #ff453a;
 }
 
 /* Pulseaudio */
 #pulseaudio {
-    background-color: rgba(210, 153, 34, 0.15);
-    color: #e3b341;
+    color: rgba(255, 255, 255, 0.85);
 }
 
 #pulseaudio.muted {
-    background-color: rgba(48, 54, 61, 0.5);
-    color: #9da5ae;
+    color: rgba(255, 255, 255, 0.4);
 }
 
 /* Backlight */
 #backlight {
-    background-color: rgba(210, 153, 34, 0.15);
-    color: #e3b341;
+    color: #ffd60a;
 }
 
 /* Power profiles */
 #power-profiles-daemon {
-    background-color: rgba(63, 185, 80, 0.15);
-    color: #56d364;
+    color: #32d74b;
 }
 
 #power-profiles-daemon.performance {
-    background-color: rgba(248, 81, 73, 0.2);
-    color: #ff7b72;
+    color: #ff9f0a;
 }
 
 #power-profiles-daemon.balanced {
-    background-color: rgba(88, 166, 255, 0.15);
-    color: #79b8ff;
+    color: #0a84ff;
 }
 
 #power-profiles-daemon.power-saver {
-    background-color: rgba(63, 185, 80, 0.2);
-    color: #56d364;
+    color: #32d74b;
 }
 
 /* Idle inhibitor */
 #idle_inhibitor {
-    background-color: rgba(48, 54, 61, 0.5);
-    color: #9da5ae;
+    color: rgba(255, 255, 255, 0.5);
 }
 
 #idle_inhibitor.activated {
-    background-color: rgba(210, 153, 34, 0.2);
-    color: #e3b341;
+    color: #ffd60a;
 }
 
 /* Tray */
 #tray {
-    background-color: rgba(48, 54, 61, 0.5);
+    background-color: rgba(255, 255, 255, 0.05);
 }
 
 #tray > .passive {
@@ -211,47 +191,46 @@ window#waybar.hidden {
 
 #tray > .needs-attention {
     -gtk-icon-effect: highlight;
-    background-color: rgba(248, 81, 73, 0.3);
 }
 
 /* MPD */
 #mpd {
-    background-color: rgba(63, 185, 80, 0.15);
-    color: #56d364;
+    color: #bf5af2;
 }
 
 #mpd.disconnected {
-    background-color: rgba(48, 54, 61, 0.4);
-    color: #9da5ae;
+    color: rgba(255, 255, 255, 0.4);
 }
 
 #mpd.stopped {
-    background-color: rgba(48, 54, 61, 0.5);
-    color: #9da5ae;
+    color: rgba(255, 255, 255, 0.5);
 }
 
 #mpd.paused {
-    background-color: rgba(210, 153, 34, 0.15);
-    color: #e3b341;
+    color: #ffd60a;
 }
 
 /* Power button */
 #custom-power {
-    background-color: rgba(248, 81, 73, 0.15);
-    color: #ff7b72;
-    padding: 4px 10px;
+    color: #ff453a;
+    padding: 4px 12px;
 }
 
 #custom-power:hover {
-    background-color: rgba(248, 81, 73, 0.3);
+    background-color: rgba(255, 69, 58, 0.2);
 }
 
-/* Hover effects for interactive modules */
+/* Hover effects */
 #pulseaudio:hover,
 #network:hover,
 #battery:hover,
 #cpu:hover,
 #memory:hover,
-#backlight:hover {
-    background-color: rgba(48, 54, 61, 0.9);
+#backlight:hover,
+#clock:hover,
+#temperature:hover,
+#power-profiles-daemon:hover,
+#idle_inhibitor:hover,
+#mpd:hover {
+    background-color: rgba(255, 255, 255, 0.15);
 }
