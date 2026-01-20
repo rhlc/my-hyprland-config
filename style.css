@@ -5,8 +5,8 @@
 }
 
 window#waybar {
-    background-color: rgba(13, 17, 23, 0.9);
-    color: #e6edf3;
+    background-color: rgba(13, 17, 23, 0.8);
+    color: #ffffff;
     transition: background-color 0.3s;
 }
 
@@ -37,7 +37,7 @@ window#waybar.hidden {
     margin: 4px 3px;
     border-radius: 8px;
     background-color: rgba(22, 27, 34, 0.8);
-    color: #e6edf3;
+    color: #ffffff;
 }
 
 #window,
@@ -51,39 +51,39 @@ window#waybar.hidden {
     margin: 0 2px;
     border-radius: 8px;
     background-color: transparent;
-    color: #7d8590;
+    color: #9da5ae;
     border: none;
     box-shadow: none;
 }
 
 #workspaces button:hover {
     background-color: rgba(48, 54, 61, 0.6);
-    color: #e6edf3;
+    color: #ffffff;
     box-shadow: none;
 }
 
 #workspaces button.focused,
 #workspaces button.active {
     background-color: rgba(88, 166, 255, 0.25);
-    color: #58a6ff;
+    color: #79b8ff;
     box-shadow: none;
 }
 
 #workspaces button.urgent {
     background-color: rgba(248, 81, 73, 0.25);
-    color: #f85149;
+    color: #ff7b72;
 }
 
 /* Window title */
 #window {
-    color: #8d96a0;
+    color: #b1bac4;
     font-weight: 500;
 }
 
 /* Clock - centered, slightly emphasized */
 #clock {
     background-color: rgba(88, 166, 255, 0.15);
-    color: #58a6ff;
+    color: #79b8ff;
     font-weight: 600;
     padding: 4px 16px;
 }
@@ -91,23 +91,23 @@ window#waybar.hidden {
 /* Battery */
 #battery {
     background-color: rgba(63, 185, 80, 0.15);
-    color: #3fb950;
+    color: #56d364;
 }
 
 #battery.charging,
 #battery.plugged {
     background-color: rgba(63, 185, 80, 0.25);
-    color: #3fb950;
+    color: #56d364;
 }
 
 #battery.warning:not(.charging) {
     background-color: rgba(210, 153, 34, 0.2);
-    color: #d29922;
+    color: #e3b341;
 }
 
 #battery.critical:not(.charging) {
     background-color: rgba(248, 81, 73, 0.3);
-    color: #f85149;
+    color: #ff7b72;
     animation: pulse 1s ease-in-out infinite;
 }
 
@@ -120,84 +120,84 @@ window#waybar.hidden {
 /* CPU */
 #cpu {
     background-color: rgba(118, 227, 234, 0.15);
-    color: #76e3ea;
+    color: #a5f3fc;
 }
 
 /* Memory */
 #memory {
     background-color: rgba(188, 140, 255, 0.15);
-    color: #bc8cff;
+    color: #d2a8ff;
 }
 
 /* Temperature */
 #temperature {
     background-color: rgba(219, 109, 40, 0.15);
-    color: #db6d28;
+    color: #f0883e;
 }
 
 #temperature.critical {
     background-color: rgba(248, 81, 73, 0.3);
-    color: #f85149;
+    color: #ff7b72;
 }
 
 /* Network */
 #network {
     background-color: rgba(88, 166, 255, 0.15);
-    color: #58a6ff;
+    color: #79b8ff;
 }
 
 #network.disconnected {
     background-color: rgba(248, 81, 73, 0.2);
-    color: #f85149;
+    color: #ff7b72;
 }
 
 /* Pulseaudio */
 #pulseaudio {
     background-color: rgba(210, 153, 34, 0.15);
-    color: #d29922;
+    color: #e3b341;
 }
 
 #pulseaudio.muted {
     background-color: rgba(48, 54, 61, 0.5);
-    color: #7d8590;
+    color: #9da5ae;
 }
 
 /* Backlight */
 #backlight {
     background-color: rgba(210, 153, 34, 0.15);
-    color: #d29922;
+    color: #e3b341;
 }
 
 /* Power profiles */
 #power-profiles-daemon {
     background-color: rgba(63, 185, 80, 0.15);
-    color: #3fb950;
+    color: #56d364;
 }
 
 #power-profiles-daemon.performance {
     background-color: rgba(248, 81, 73, 0.2);
-    color: #f85149;
+    color: #ff7b72;
 }
 
 #power-profiles-daemon.balanced {
     background-color: rgba(88, 166, 255, 0.15);
-    color: #58a6ff;
+    color: #79b8ff;
 }
 
 #power-profiles-daemon.power-saver {
     background-color: rgba(63, 185, 80, 0.2);
-    color: #3fb950;
+    color: #56d364;
 }
 
 /* Idle inhibitor */
 #idle_inhibitor {
     background-color: rgba(48, 54, 61, 0.5);
-    color: #7d8590;
+    color: #9da5ae;
 }
 
 #idle_inhibitor.activated {
     background-color: rgba(210, 153, 34, 0.2);
-    color: #d29922;
+    color: #e3b341;
 }
 
 /* Tray */
@@ -217,28 +217,28 @@ window#waybar.hidden {
 /* MPD */
 #mpd {
     background-color: rgba(63, 185, 80, 0.15);
-    color: #3fb950;
+    color: #56d364;
 }
 
 #mpd.disconnected {
     background-color: rgba(48, 54, 61, 0.4);
-    color: #7d8590;
+    color: #9da5ae;
 }
 
 #mpd.stopped {
     background-color: rgba(48, 54, 61, 0.5);
-    color: #7d8590;
+    color: #9da5ae;
 }
 
 #mpd.paused {
     background-color: rgba(210, 153, 34, 0.15);
-    color: #d29922;
+    color: #e3b341;
 }
 
 /* Power button */
 #custom-power {
     background-color: rgba(248, 81, 73, 0.15);
-    color: #f85149;
+    color: #ff7b72;
     padding: 4px 10px;
 }
 
