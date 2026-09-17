@@ -1,0 +1,20 @@
+# Keep this repository limited to the reviewed configuration files listed in README.
+# Do not add browser profiles, caches, tokens, logs, databases, or session state.
+
+*.log
+*.sqlite
+*.sqlite-*
+*.db
+*.db-*
+*.journal
+Cookies
+Cookies-*
+Local State
+TransportSecurity
+Network Persistent State
+Session Storage/
+GPUCache/
+Code Cache/
+Cache/
+logs/
+profiler_data/

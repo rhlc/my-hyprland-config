@@ -1,0 +1,263 @@
+* {
+  /* `otf-font-awesome` + a Nerd Font are required for icons */
+  font-family:
+    "SF Pro Display", "SF Pro", "JetBrainsMono Nerd Font", FontAwesome,
+    sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  min-height: 0;
+}
+
+/* ---------------------------------------------------------------- */
+/* Bar shell — full-width glass strip                                */
+/* ---------------------------------------------------------------- */
+
+window#waybar {
+  background: rgba(24, 24, 28, 0.45);
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.92);
+  transition-property: background-color;
+  transition-duration: 0.3s;
+}
+
+window#waybar.hidden {
+  opacity: 0.2;
+}
+
+/* ---------------------------------------------------------------- */
+/* Buttons / workspaces                                             */
+/* ---------------------------------------------------------------- */
+
+button {
+  box-shadow: none;
+  border: none;
+  border-radius: 8px;
+}
+
+button:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+#workspaces {
+  margin: 4px 0;
+  padding: 0 6px;
+}
+
+#workspaces button {
+  padding: 0 8px;
+  margin: 0 2px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.55);
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+#workspaces button:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.92);
+}
+
+#workspaces button.focused,
+#workspaces button.active {
+  background: rgba(255, 255, 255, 0.14);
+  color: rgba(255, 255, 255, 0.95);
+}
+
+#workspaces button.urgent {
+  background: rgba(255, 107, 107, 0.35);
+  color: #ffffff;
+}
+
+#mode {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  margin: 4px 0;
+  padding: 0 6px;
+}
+
+/* ---------------------------------------------------------------- */
+/* Generic module styling — flat, minimal, no colour blocks         */
+/* ---------------------------------------------------------------- */
+
+#window,
+#clock,
+#battery,
+#cpu,
+#memory,
+#disk,
+#temperature,
+#backlight,
+#network,
+#pulseaudio,
+#wireplumber,
+#custom-media,
+#tray,
+#idle_inhibitor,
+#scratchpad,
+#power-profiles-daemon,
+#mpris,
+#language,
+#keyboard-state,
+#privacy,
+#custom-power {
+  padding: 0 6px;
+  margin: 4px 0;
+  color: rgba(255, 255, 255, 0.85);
+  background: transparent;
+  border-radius: 8px;
+}
+
+#window {
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 400;
+}
+
+/* subtle hover affordance across the board */
+#battery:hover,
+#cpu:hover,
+#memory:hover,
+#temperature:hover,
+#backlight:hover,
+#network:hover,
+#pulseaudio:hover,
+#wireplumber:hover,
+#custom-media:hover,
+#idle_inhibitor:hover,
+#power-profiles-daemon:hover,
+#mpris:hover,
+#custom-power:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* ---------------------------------------------------------------- */
+/* Semantic / state colours — used sparingly                        */
+/* ---------------------------------------------------------------- */
+
+#clock {
+  font-weight: 600;
+  color: #ffffff;
+}
+
+#battery.charging,
+#battery.plugged {
+  color: #8ef0a4;
+}
+
+@keyframes blink {
+  to {
+    color: #ffffff;
+  }
+}
+
+#battery.critical:not(.charging) {
+  color: #ff6b6b;
+  animation-name: blink;
+  animation-duration: 0.8s;
+  animation-timing-function: steps(12);
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+#power-profiles-daemon.performance {
+  color: #ff9494;
+}
+
+#power-profiles-daemon.balanced {
+  color: #7fc4ff;
+}
+
+#power-profiles-daemon.power-saver {
+  color: #8ef0a4;
+}
+
+#network.disconnected {
+  color: #ff6b6b;
+}
+
+#pulseaudio.muted,
+#wireplumber.muted {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+#custom-media.custom-spotify {
+  color: #8ef0a4;
+}
+
+#custom-media.custom-vlc {
+  color: #ffb454;
+}
+
+#temperature.critical {
+  color: #ff6b6b;
+}
+
+#tray > .passive {
+  -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+  -gtk-icon-effect: highlight;
+  background: rgba(255, 107, 107, 0.35);
+  border-radius: 8px;
+}
+
+#idle_inhibitor.activated {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+#mpris.stopped {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+#mpris.paused {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+#keyboard-state > label {
+  padding: 0 4px;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+#keyboard-state > label.locked {
+  color: #ffffff;
+}
+
+#scratchpad.empty {
+  opacity: 0.4;
+}
+
+#privacy-item {
+  padding: 0 6px;
+  color: #ffffff;
+}
+
+#privacy-item.screenshare {
+  color: #ffb454;
+}
+
+#privacy-item.audio-in {
+  color: #8ef0a4;
+}
+
+#privacy-item.audio-out {
+  color: #7fc4ff;
+}
+
+#privacy-item.location {
+  color: #7fc4ff;
+}
+
+/* custom/power gets a touch more emphasis since it has no label */
+#custom-power {
+  padding: 0 9px;
+  margin: 2px 0;
+  color: #ff9494;
+}
+
+#custom-power:hover {
+  background: rgba(255, 148, 148, 0.15);
+}
