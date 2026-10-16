@@ -1,19 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <object class="GtkMenu" id="menu">
+    <property name="name">power-menu</property>
     <child>
       <object class="GtkMenuItem" id="suspend">
-        <property name="label">Suspend</property>
+        <child>
+          <object class="GtkLabel">
+            <property name="visible">True</property>
+            <property name="label">Sleep</property>
+            <property name="xalign">0</property>
+            <property name="halign">start</property>
+          </object>
+        </child>
       </object>
     </child>
     <child>
       <object class="GtkMenuItem" id="hibernate">
-        <property name="label">Hibernate</property>
-      </object>
-    </child>
-    <child>
-      <object class="GtkMenuItem" id="shutdown">
-        <property name="label">Shutdown</property>
+        <child>
+          <object class="GtkLabel">
+            <property name="visible">True</property>
+            <property name="label">Hibernate</property>
+            <property name="xalign">0</property>
+            <property name="halign">start</property>
+          </object>
+        </child>
       </object>
     </child>
     <child>
@@ -21,7 +31,26 @@
     </child>
     <child>
       <object class="GtkMenuItem" id="reboot">
-        <property name="label">Reboot</property>
+        <child>
+          <object class="GtkLabel">
+            <property name="visible">True</property>
+            <property name="label">Restart…</property>
+            <property name="xalign">0</property>
+            <property name="halign">start</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="shutdown">
+        <child>
+          <object class="GtkLabel">
+            <property name="visible">True</property>
+            <property name="label">Shut Down…</property>
+            <property name="xalign">0</property>
+            <property name="halign">start</property>
+          </object>
+        </child>
       </object>
     </child>
   </object>

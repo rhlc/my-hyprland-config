@@ -15,23 +15,31 @@
 -- Create your files separately and then require them like this:
 -- require("myColors")
 
-
 ------------------
 ---- MONITORS ----
 ------------------
+require("monitors")
 
 -- See https://wiki.hypr.land/Configuring/Basics/Monitors/
-hl.monitor({
-    output   = "HDMI-A-1",
-    mode     = "1920x1080@60",
-    position = "0x0",
-    scale    = "1.0",
-})
+-- hl.monitor({
+--     output   = "HDMI-A-1",
+--     mode     = "1920x1080@60",
+--     position = "0x0",
+--     scale    = "1.25",
+-- })
 
-hl.monitor({
-	output = "eDP-1",
-	disabled = true
-})
+-- hl.monitor({
+-- 	output = 'eDP-1',
+-- 	disabled = true
+-- })
+
+-- hl.monitor({
+-- 	output = 'eDP-1',
+-- 	mode     = "1920x1080@60",
+--     position = "auto",
+--     scale    = "1.33",
+-- })
+
 
 ---------------------
 ---- MY PROGRAMS ----
@@ -55,7 +63,7 @@ local menu        = "hyprlauncher"
 hl.on("hyprland.start", function () 
 --   hl.exec_cmd(terminal)
 --   hl.exec_cmd("nm-applet")
-  hl.exec_cmd("waybar & hyprpaper & hyprsunset & hypridle")
+ hl.exec_cmd("waybar & hyprpaper & hyprsunset & hypridle")
 end)
 
 
@@ -95,14 +103,15 @@ hl.env("HYPRCURSOR_SIZE", "24")
 -- Refer to https://wiki.hypr.land/Configuring/Basics/Variables/
 hl.config({
     general = {
-        gaps_in  = 3,
-        gaps_out = 6,
+        gaps_in  = 5,
+        gaps_out = 10,
 
-        border_size = 2,
+        border_size = 1,
 
         col = {
-            active_border   = { colors = {"rgba(33ccffee)", "rgba(00ff99ee)"}, angle = 45 },
-            inactive_border = "rgba(595959aa)",
+            -- macOS: no accent borders, just a faint hairline edge
+            active_border   = "rgba(ffffff38)",
+            inactive_border = "rgba(ffffff14)",
         },
 
         -- Set to true to enable resizing windows by clicking and dragging on borders and gaps
@@ -115,25 +124,36 @@ hl.config({
     },
 
     decoration = {
-        rounding       = 5,
-        rounding_power = 1,
+        rounding       = 14,
+        rounding_power = 4,   -- squircle-ish corners like macOS
 
         -- Change transparency of focused and unfocused windows
         active_opacity   = 1.0,
-        inactive_opacity = 1.0,
+        inactive_opacity = 0.9,
+
+        -- slight dim on unfocused windows (blur shows through the translucency)
+        dim_inactive = true,
+        dim_strength = 0.06,
 
         shadow = {
-            enabled      = true,
-            range        = 4,
-            render_power = 3,
-            color        = 0xee1a1a1a,
+            enabled        = true,
+            range          = 40,
+            render_power   = 3,
+            offset         = "0 14",
+            scale          = 0.97,
+            color          = 0x59000000,
+            color_inactive = 0x33000000,
         },
 
         blur = {
             enabled   = true,
-            size      = 3,
-            passes    = 1,
-            vibrancy  = 0.1696,
+            size      = 10,
+            passes    = 3,
+            vibrancy  = 0.25,
+            contrast  = 0.95,
+            brightness = 1.0,
+            noise     = 0.02,
+            popups    = true,
         },
     },
 
@@ -152,23 +172,31 @@ hl.curve("quick",          { type = "bezier", points = { {0.15, 0},    {0.1, 1} 
 -- Default springs
 hl.curve("easy",           { type = "spring", mass = 1, stiffness = 238.1191, dampening = 24.21279333 })
 
-hl.animation({ leaf = "global",        enabled = true,  speed = 10,   bezier = "default" })
-hl.animation({ leaf = "border",        enabled = true,  speed = 5.39, bezier = "easeOutQuint" })
-hl.animation({ leaf = "windows",       enabled = true,  speed = 4.79, spring = "easy" })
-hl.animation({ leaf = "windowsIn",     enabled = true,  speed = 4.1,  spring = "easy",         style = "popin 87%" })
-hl.animation({ leaf = "windowsOut",    enabled = true,  speed = 1.49, bezier = "linear",       style = "popin 87%" })
-hl.animation({ leaf = "fadeIn",        enabled = true,  speed = 1.73, bezier = "almostLinear" })
-hl.animation({ leaf = "fadeOut",       enabled = true,  speed = 1.46, bezier = "almostLinear" })
-hl.animation({ leaf = "fade",          enabled = true,  speed = 3.03, bezier = "quick" })
-hl.animation({ leaf = "layers",        enabled = true,  speed = 3.81, bezier = "easeOutQuint" })
-hl.animation({ leaf = "layersIn",      enabled = true,  speed = 4,    bezier = "easeOutQuint", style = "fade" })
-hl.animation({ leaf = "layersOut",     enabled = true,  speed = 1.5,  bezier = "linear",       style = "fade" })
-hl.animation({ leaf = "fadeLayersIn",  enabled = true,  speed = 1.79, bezier = "almostLinear" })
-hl.animation({ leaf = "fadeLayersOut", enabled = true,  speed = 1.39, bezier = "almostLinear" })
-hl.animation({ leaf = "workspaces",    enabled = true,  speed = 1.94, bezier = "almostLinear", style = "fade" })
-hl.animation({ leaf = "workspacesIn",  enabled = true,  speed = 1.21, bezier = "almostLinear", style = "fade" })
-hl.animation({ leaf = "workspacesOut", enabled = true,  speed = 1.94, bezier = "almostLinear", style = "fade" })
-hl.animation({ leaf = "zoomFactor",    enabled = true,  speed = 7,    bezier = "quick" })
+-- macOS-style motion: soft ease-out, a touch of spring on windows opening
+hl.curve("macOut",    { type = "bezier", points = { {0.16, 1},    {0.3, 1}    } })
+hl.curve("macInOut",  { type = "bezier", points = { {0.42, 0},    {0.2, 1}    } })
+hl.curve("macSpring", { type = "bezier", points = { {0.34, 1.18}, {0.64, 1}   } })
+hl.curve("macQuick",  { type = "bezier", points = { {0.4, 0},     {1, 1}      } })
+
+hl.animation({ leaf = "global",        enabled = true,  speed = 10,   bezier = "macOut" })
+hl.animation({ leaf = "border",        enabled = true,  speed = 6,    bezier = "macOut" })
+hl.animation({ leaf = "borderangle",   enabled = false })
+hl.animation({ leaf = "windows",       enabled = true,  speed = 5,    bezier = "macOut" })
+hl.animation({ leaf = "windowsIn",     enabled = true,  speed = 5,    bezier = "macSpring", style = "popin 90%" })
+hl.animation({ leaf = "windowsOut",    enabled = true,  speed = 3.2,  bezier = "macQuick",  style = "popin 92%" })
+hl.animation({ leaf = "windowsMove",   enabled = true,  speed = 4.5,  bezier = "macOut" })
+hl.animation({ leaf = "fadeIn",        enabled = true,  speed = 3.5,  bezier = "macOut" })
+hl.animation({ leaf = "fadeOut",       enabled = true,  speed = 3,    bezier = "macQuick" })
+hl.animation({ leaf = "fade",          enabled = true,  speed = 4,    bezier = "macOut" })
+hl.animation({ leaf = "fadeDim",       enabled = true,  speed = 5,    bezier = "macOut" })
+hl.animation({ leaf = "layers",        enabled = true,  speed = 4.5,  bezier = "macOut" })
+hl.animation({ leaf = "layersIn",      enabled = true,  speed = 4.5,  bezier = "macSpring", style = "popin 94%" })
+hl.animation({ leaf = "layersOut",     enabled = true,  speed = 3,    bezier = "macQuick",  style = "fade" })
+hl.animation({ leaf = "fadeLayersIn",  enabled = true,  speed = 3.5,  bezier = "macOut" })
+hl.animation({ leaf = "fadeLayersOut", enabled = true,  speed = 3,    bezier = "macQuick" })
+hl.animation({ leaf = "workspaces",    enabled = true,  speed = 6,    bezier = "macInOut",  style = "slide" })
+hl.animation({ leaf = "specialWorkspace", enabled = true, speed = 5,  bezier = "macOut",    style = "slidevert" })
+hl.animation({ leaf = "zoomFactor",    enabled = true,  speed = 7,    bezier = "macOut" })
 
 -- Ref https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/
 -- "Smart gaps" / "No gaps when only"
@@ -238,7 +266,7 @@ hl.config({
         sensitivity = 0, -- -1.0 - 1.0, 0 means no modification.
 
         touchpad = {
-            natural_scroll = false,
+            natural_scroll = true,
         },
     },
 })
@@ -247,13 +275,6 @@ hl.gesture({
     fingers = 3,
     direction = "horizontal",
     action = "workspace"
-})
-
--- Example per-device config
--- See https://wiki.hypr.land/Configuring/Advanced-and-Cool/Devices/ for more
-hl.device({
-    name        = "epic-mouse-v1",
-    sensitivity = -0.5,
 })
 
 
@@ -301,12 +322,16 @@ hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(),   { mouse = true })
 hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
 -- Laptop multimedia keys for volume and LCD brightness
-hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"), { locked = true, repeating = true })
-hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"),      { locked = true, repeating = true })
-hl.bind("XF86AudioMute",        hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"),     { locked = true, repeating = true })
+hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("~/.config/hypr/scripts/volume.sh up"), { locked = true, repeating = true })
+hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("~/.config/hypr/scripts/volume.sh down"),      { locked = true, repeating = true })
+hl.bind("XF86AudioMute",        hl.dsp.exec_cmd("~/.config/hypr/scripts/volume.sh mute"),     { locked = true, repeating = true })
 hl.bind("XF86AudioMicMute",     hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"),   { locked = true, repeating = true })
-hl.bind("XF86MonBrightnessUp",  hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%+"),                  { locked = true, repeating = true })
-hl.bind("XF86MonBrightnessDown",hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%-"),                  { locked = true, repeating = true })
+hl.bind("XF86MonBrightnessUp",  hl.dsp.exec_cmd("~/.config/hypr/scripts/brightness.sh up"),                  { locked = true, repeating = true })
+hl.bind("XF86MonBrightnessDown",hl.dsp.exec_cmd("~/.config/hypr/scripts/brightness.sh down"),                  { locked = true, repeating = true })
+
+-- External monitor brightness (DDC/CI)
+hl.bind("CTRL + ALT + up",   hl.dsp.exec_cmd("~/.config/hypr/scripts/ext-brightness.sh up"))
+hl.bind("CTRL + ALT + down", hl.dsp.exec_cmd("~/.config/hypr/scripts/ext-brightness.sh down"))
 
 -- Requires playerctl
 hl.bind("XF86AudioNext",  hl.dsp.exec_cmd("playerctl next"),       { locked = true })
@@ -316,13 +341,14 @@ hl.bind("XF86AudioPrev",  hl.dsp.exec_cmd("playerctl previous"),   { locked = tr
 
 -- Requires hyprshot
 local shiftMod = "SHIFT"
-local screenshotDir = "/home/rahul/Pictures/Screenshots/"
+local screenshotDir = os.getenv("HOME") .. "/Pictures/Screenshots/"
 hl.bind(mainMod .. " + PRINT", hl.dsp.exec_cmd("hyprshot -m window -o " .. screenshotDir))  -- Screenshot a window
 hl.bind("PRINT",               hl.dsp.exec_cmd("hyprshot -m region -o " .. screenshotDir))  -- Screenshot a region
 hl.bind(shiftMod .. " + PRINT", hl.dsp.exec_cmd("hyprshot -m output -o " .. screenshotDir)) -- Screenshot a monitor
 
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ action = "toggle" }))
-hl.bind(mainMod .. " + T", hl.dsp.exec_cmd("/usr/lib/xscreensaver/gluqlo -root"))
+hl.bind(mainMod .. " + T", hl.dsp.exec_cmd("/usr/libexec/xscreensaver/gluqlo -root"))
+
 
 --------------------------------
 ---- WINDOWS AND WORKSPACES ----
@@ -365,22 +391,20 @@ hl.window_rule({
 -- })
 -- overlayLayerRule:set_enabled(false)
 
--- Blur the desktop behind waybar's glass background (see waybar/style.css)
+-- Frosted-glass blur behind waybar (macOS menu bar look)
 hl.layer_rule({
     name  = "waybar-blur",
     match = { namespace = "^waybar$" },
-
-    blur         = true,
-    ignore_alpha = 0.2,
+    blur = true,
+    ignore_alpha = 0.1,
 })
 
--- Blur the desktop behind dunst notifications' glass background (see dunst/dunstrc)
+-- Frosted-glass blur behind notifications (dunst)
 hl.layer_rule({
     name  = "dunst-blur",
     match = { namespace = "^notifications$" },
-
-    blur         = true,
-    ignore_alpha = 0.2,
+    blur = true,
+    ignore_alpha = 0.1,
 })
 
 -- Hyprland-run windowrule
@@ -390,4 +414,12 @@ hl.window_rule({
 
     move  = "20 monitor_h-120",
     float = true,
+})
+
+-- Frosted-glass blur behind the launcher (macOS Spotlight look)
+hl.layer_rule({
+    name  = "hyprlauncher-blur",
+    match = { namespace = "^hyprlauncher$" },
+    blur = true,
+    ignore_alpha = 0.05,
 })

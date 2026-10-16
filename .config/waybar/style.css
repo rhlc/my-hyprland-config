@@ -1,10 +1,9 @@
 * {
   /* `otf-font-awesome` + a Nerd Font are required for icons */
-  font-family:
-    "SF Pro Display", "SF Pro", "JetBrainsMono Nerd Font", FontAwesome,
-    sans-serif;
+  font-family: "SF Pro Display", "SF Pro", "0xProto Nerd Font", sans-serif;
   font-size: 13px;
   font-weight: 500;
+  letter-spacing: 0.2px;
   min-height: 0;
 }
 
@@ -13,12 +12,13 @@
 /* ---------------------------------------------------------------- */
 
 window#waybar {
-  background: rgba(24, 24, 28, 0.45);
+  background: rgba(20, 16, 14, 0.2);
   border: none;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: none;
+  box-shadow: none;
   border-radius: 0;
   margin: 0;
-  color: rgba(255, 255, 255, 0.92);
+  color: rgba(255, 255, 255, 0.95);
   transition-property: background-color;
   transition-duration: 0.3s;
 }
@@ -34,7 +34,7 @@ window#waybar.hidden {
 button {
   box-shadow: none;
   border: none;
-  border-radius: 8px;
+  border-radius: 6px;
 }
 
 button:hover {
@@ -47,11 +47,14 @@ button:hover {
 }
 
 #workspaces button {
-  padding: 0 8px;
+  /* top | right | bottom | left */
+  padding: 0 10px;
+  min-width: 0;
+  letter-spacing: 0; /* plain digits: symmetric padding keeps them centered in the pill */
   margin: 0 2px;
   background: transparent;
   color: rgba(255, 255, 255, 0.55);
-  border-radius: 8px;
+  border-radius: 6px;
   transition: all 0.2s ease;
 }
 
@@ -62,18 +65,19 @@ button:hover {
 
 #workspaces button.focused,
 #workspaces button.active {
-  background: rgba(255, 255, 255, 0.14);
-  color: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+  font-weight: 600;
 }
 
 #workspaces button.urgent {
-  background: rgba(255, 107, 107, 0.35);
+  background: #ff453a;
   color: #ffffff;
 }
 
 #mode {
   background: rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
+  border-radius: 6px;
   margin: 4px 0;
   padding: 0 6px;
 }
@@ -102,17 +106,20 @@ button:hover {
 #language,
 #keyboard-state,
 #privacy,
+#custom-focus,
 #custom-power {
-  padding: 0 6px;
-  margin: 4px 0;
-  color: rgba(255, 255, 255, 0.85);
+  padding: 0 8px;
+  margin: 3px 0;
+  color: rgba(255, 255, 255, 0.92);
   background: transparent;
-  border-radius: 8px;
+  border-radius: 6px;
 }
 
+/* active app name — bold like the macOS app menu title */
 #window {
-  color: rgba(255, 255, 255, 0.6);
-  font-weight: 400;
+  color: #ffffff;
+  font-weight: 700;
+  padding: 0 8px;
 }
 
 /* subtle hover affordance across the board */
@@ -137,13 +144,14 @@ button:hover {
 /* ---------------------------------------------------------------- */
 
 #clock {
-  font-weight: 600;
+  font-weight: 500;
   color: #ffffff;
+  padding: 0 8px;
 }
 
 #battery.charging,
 #battery.plugged {
-  color: #8ef0a4;
+  /* color: #30d158; */
 }
 
 @keyframes blink {
@@ -153,7 +161,7 @@ button:hover {
 }
 
 #battery.critical:not(.charging) {
-  color: #ff6b6b;
+  color: #ff453a;
   animation-name: blink;
   animation-duration: 0.8s;
   animation-timing-function: steps(12);
@@ -162,19 +170,19 @@ button:hover {
 }
 
 #power-profiles-daemon.performance {
-  color: #ff9494;
+  /* color: #ff9494; */
 }
 
 #power-profiles-daemon.balanced {
-  color: #7fc4ff;
+  /* color: #0a84ff; */
 }
 
 #power-profiles-daemon.power-saver {
-  color: #8ef0a4;
+  /* color: #30d158; */
 }
 
 #network.disconnected {
-  color: #ff6b6b;
+  color: #ff453a;
 }
 
 #pulseaudio.muted,
@@ -183,15 +191,15 @@ button:hover {
 }
 
 #custom-media.custom-spotify {
-  color: #8ef0a4;
+  color: #30d158;
 }
 
 #custom-media.custom-vlc {
-  color: #ffb454;
+  color: #ff9f0a;
 }
 
 #temperature.critical {
-  color: #ff6b6b;
+  color: #ff453a;
 }
 
 #tray > .passive {
@@ -200,13 +208,13 @@ button:hover {
 
 #tray > .needs-attention {
   -gtk-icon-effect: highlight;
-  background: rgba(255, 107, 107, 0.35);
-  border-radius: 8px;
+  background: rgba(255, 69, 58, 0.45);
+  border-radius: 6px;
 }
 
 #idle_inhibitor.activated {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.14);
+  color: #0a84ff;
+  background: rgba(10, 132, 255, 0.18);
 }
 
 #mpris.stopped {
@@ -236,28 +244,390 @@ button:hover {
 }
 
 #privacy-item.screenshare {
-  color: #ffb454;
+  color: #ff9f0a;
 }
 
 #privacy-item.audio-in {
-  color: #8ef0a4;
+  color: #30d158;
 }
 
 #privacy-item.audio-out {
-  color: #7fc4ff;
+  color: #0a84ff;
 }
 
 #privacy-item.location {
-  color: #7fc4ff;
+  color: #0a84ff;
 }
 
 /* custom/power gets a touch more emphasis since it has no label */
 #custom-power {
-  padding: 0 9px;
-  margin: 2px 0;
-  color: #ff9494;
+  padding: 0 8px;
+  margin: 3px 0;
+  /* color: #ff9494; */
 }
 
 #custom-power:hover {
   background: rgba(255, 148, 148, 0.15);
+}
+
+/* ---------------------------------------------------------------- */
+/* macOS touches                                                    */
+/* ---------------------------------------------------------------- */
+
+tooltip {
+  background: rgba(44, 44, 46, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+tooltip label {
+  padding: 2px 4px;
+}
+
+/* pressed state, like menu bar items highlighting on click */
+#workspaces button:active,
+#battery:active,
+#network:active,
+#pulseaudio:active,
+#custom-power:active {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+/* battery as a rounded pill, like the macOS-style badge */
+#battery {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  padding: 0 10px;
+  margin: 4px 4px 4px 8px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+#battery.charging,
+#battery.plugged {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+#battery.warning:not(.charging) {
+  background: rgba(255, 69, 58, 0.3);
+  color: #ff453a;
+}
+
+#battery.critical:not(.charging) {
+  background: rgba(255, 69, 58, 0.3);
+  color: #ff453a;
+}
+
+/* ---------------------------------------------------------------- */
+/* Unified hover — one highlight for every interactive item          */
+/* (kept last so it overrides the per-module hover rules above)      */
+/* ---------------------------------------------------------------- */
+
+#workspaces button:hover,
+#window:hover,
+#clock:hover,
+#cpu:hover,
+#memory:hover,
+#temperature:hover,
+#backlight:hover,
+#network:hover,
+#pulseaudio:hover,
+#wireplumber:hover,
+#custom-media:hover,
+#idle_inhibitor:hover,
+#power-profiles-daemon:hover,
+#mpris:hover,
+#custom-focus:hover,
+#custom-power:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+  transition: background-color 0.15s ease;
+}
+
+/* keep the focused workspace and battery pill distinct on hover */
+#workspaces button.focused:hover,
+#workspaces button.active:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+#battery:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* ---------------------------------------------------------------- */
+/* Control drawer (performance + power)                              */
+/* ---------------------------------------------------------------- */
+
+#custom-perf {
+  padding: 0 8px;
+  margin: 3px 0;
+  color: #ffffff;
+  background: transparent;
+  border-radius: 6px;
+}
+
+#custom-perf:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* ---------------------------------------------------------------- */
+/* Icon-only modules: same box as the battery pill, glyph centered   */
+/* ---------------------------------------------------------------- */
+
+#idle_inhibitor,
+#network,
+#custom-perf,
+#custom-power,
+#backlight,
+#pulseaudio,
+#power-profiles-daemon {
+  margin: 4px 0;
+  padding: 0 10px;
+  min-width: 16px;
+}
+
+#idle_inhibitor label,
+#network label {
+  padding: 0;
+}
+
+/* Nerd Font glyphs sit high in the line box — push them down to center */
+#idle_inhibitor,
+#network,
+#custom-perf,
+#custom-power {
+  padding: 3px 10px 0 10px;
+}
+
+/* per-icon vertical tuning (overrides the blanket 3px above) */
+#idle_inhibitor {
+  padding: 1px 10px 0 10px;
+}
+#network {
+  padding: 0 10px;
+}
+#custom-power {
+  padding: 0 10px;
+}
+#custom-perf {
+  padding: 1px 10px 0 10px;
+}
+
+/* workspace → window-title gap: match the ~20px glyph spacing on the right */
+#workspaces {
+  padding: 0 0 0 6px;
+}
+
+#window {
+  padding: 0 10px;
+}
+
+#window {
+  padding: 0 10px 0 4px;
+}
+
+/* uniform icon boxes: same width, glyph centered, symmetric neighbours */
+#idle_inhibitor,
+#network,
+#custom-perf {
+  min-width: 20px;
+}
+
+#battery {
+  margin: 4px 6px;
+}
+
+#network {
+  padding: 0 6px 0 10px;
+}
+
+/* centering fixes (measured): shift glyphs left inside their boxes */
+#idle_inhibitor {
+  padding: 1px 13px 0 7px;
+}
+#network {
+  padding: 0 10px 0 6px;
+  margin: 4px 2px;
+}
+#custom-perf {
+  margin: 4px 2px;
+}
+#clock {
+  margin: 4px 0;
+}
+
+/* chevron: narrow box so the collapsed drawer doesn't add extra space */
+#custom-perf {
+  min-width: 10px;
+  padding: 0 6px 1px 6px;
+  margin: 4px 0;
+}
+
+#network {
+  padding: 0 8px 0 6px;
+}
+#clock {
+  margin: 4px 0 4px 4px;
+}
+
+#network {
+  padding: 0 8px 0 3px;
+}
+
+#power-profiles-daemon {
+  padding: 0 10px;
+  min-width: 20px;
+}
+
+/* tooltips — one consistent glass look for network, clock, drawer arrow */
+tooltip {
+  background: rgba(30, 26, 24, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  color: #ffffff;
+}
+
+tooltip label {
+  padding: 6px 10px;
+  color: #ffffff;
+  font-family: "SF Pro Text", "SF Pro", sans-serif;
+  font-size: 13px;
+}
+
+/* privacy dots (camera / mic / screen) — sits right of the control toggle */
+#custom-privacy {
+  padding: 0 2px 0 0;
+  margin: 4px 0 4px 3px;
+  background: transparent;
+  font-size: 11px;
+}
+
+/* volume icon: same box as the other icon-only modules */
+#pulseaudio {
+  margin: 4px 0;
+  padding: 0 10px;
+  min-width: 20px;
+}
+
+/* battery pill: even inner padding (icon glyph has little built-in right bearing) */
+#battery {
+  padding: 0 10px;
+  min-width: 16px;
+  font-family: "0xProto Nerd Font", "SF Pro Display", sans-serif;
+}
+
+/* Nerd Font battery glyphs overflow their advance box to the right, and by
+   different amounts per glyph (ink centre vs advance centre, 13px:
+   battery +2.7px, charging +1.9px, plug +0.5px). Keep L+R constant so the
+   pill is the same width in every state and shift padding so the ink centres. */
+#battery {
+  padding: 0 13px 0 7px;
+}
+#battery.charging {
+  padding: 0 12px 0 8px;
+}
+#battery.plugged:not(.full):not(.charging) {
+  padding: 0 10px;
+}
+
+/* expand toggle: box at least as wide as the glyph so it centers */
+#custom-perf {
+  min-width: 16px;
+  padding: 0 8px 1px 2px;
+}
+
+/* ---------------------------------------------------------------- */
+/* Power dropdown — light macOS-style frosted glass, dark text       */
+/* (scoped to #power-menu, set in power_menu.xml; tray menus keep    */
+/* the default GTK styling)                                          */
+/* ---------------------------------------------------------------- */
+
+window.popup,
+window.popup > decoration {
+  background: transparent;
+  box-shadow: none;
+  border-radius: 10px;
+}
+
+#power-menu {
+  background: rgba(246, 238, 242, 0.89);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 10px;
+  padding: 5px;
+  margin: 0;
+  color: rgba(0, 0, 0, 0.85);
+}
+
+#power-menu menuitem {
+  background: transparent;
+  color: rgba(0, 0, 0, 0.85);
+  border-radius: 5px;
+  padding: 4px 14px 4px 4px;
+  margin: 0;
+  min-height: 20px;
+  min-width: 170px;
+  transition: background-color 0.1s ease;
+}
+
+#power-menu menuitem label {
+  color: rgba(0, 0, 0, 0.85);
+  font-family: "SF Pro Text", "SF Pro", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+}
+
+/* power menu has no icons: cancel the indent GTK reserves before the label */
+#power-menu menuitem > label {
+  margin-left: -24px;
+}
+
+#power-menu menuitem:hover,
+#power-menu menuitem:focus {
+  background: #0a84ff;
+}
+
+#power-menu menuitem:hover label,
+#power-menu menuitem:focus label {
+  color: #ffffff;
+}
+
+#power-menu separator {
+  background: rgba(0, 0, 0, 0.14);
+  min-height: 1px;
+  margin: 5px 8px;
+}
+
+#custom-focus.idle,
+#custom-focus.paused,
+#custom-focus.break {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* tray: uniform icon boxes, vertically centered */
+#tray {
+  padding: 0 3px;
+  margin: 4px 0;
+}
+
+#tray > widget > image {
+  min-width: 16px;
+  min-height: 16px;
+  margin: 0;
+  padding: 0 7px;
+}
+
+#tray > widget {
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  border-radius: 6px;
+  transition: background-color 0.15s ease;
+}
+
+#tray > widget:hover {
+  background: rgba(255, 255, 255, 0.12);
 }
